@@ -1,18 +1,15 @@
 .header {
+  border-bottom: var(--border-width-s) solid transparent;
   padding-block: fluid(22, 14);
-
   position: sticky;
   z-index: 100;
-  top: 0;
   width: 100%;
-
-  border-bottom: var(--border-width-s) solid transparent;
+  top: 0;
 
   animation-name:scrolling-header;
   animation-fill-mode: both;
   animation-timeline: scroll();
   animation-range: 0 100px;
-
 
   @keyframes scrolling-header {
     to {
@@ -33,7 +30,6 @@
     background-color: var(--color-black-06);
     outline: var(--border-width-l) solid var(--color-black-12);
     border-radius: var(--border-radius-l);
-
 
     @include laptop {
       border-radius: var(--border-radius-m);
@@ -62,6 +58,14 @@
         pointer-events: none;
       }
     }
+
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
   }
 }
 
