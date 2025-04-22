@@ -6,7 +6,7 @@
   width: 100%;
   top: 0;
 
-  animation-name:scrolling-header;
+  animation-name: scrolling-header;
   animation-fill-mode: both;
   animation-timeline: scroll();
   animation-range: 0 100px;
@@ -25,17 +25,57 @@
     column-gap: 16px;
   }
 
+  &__overlay-menu-dialog {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: var(--color-black-20);
+    padding: 20px;
+
+    flex-direction: column-reverse;
+    justify-content: start;
+    row-gap: 16px;
+
+    @include tablet-above {
+      display: contents;
+    }
+
+    &[open] {
+      display: flex;
+    }
+  }
+
   &__menu {
-    padding: fluid-to-laptop(10, 8);
-    background-color: var(--color-black-06);
-    outline: var(--border-width-l) solid var(--color-black-12);
     border-radius: var(--border-radius-l);
+
+    @include tablet {
+      border-radius: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      overflow-y: auto;
+    }
 
     @include laptop {
       border-radius: var(--border-radius-m);
     }
 
+    @include tablet-above {
+      padding: fluid-to-laptop(10, 8);
+      background-color: var(--color-black-06);
+      outline: var(--border-width-l) solid var(--color-black-12);
+    }
+
     &-list {
+      @include tablet {
+        flex-direction: column;
+        row-gap: 16px;
+      }
+
       display: flex;
       align-items: center;
       column-gap: 6px;
@@ -45,6 +85,10 @@
       padding: fluid-to-laptop(14, 12) fluid-to-laptop(24, 20);
       color: var(--color-gray-75);
       border-radius: var(--border-radius-s);
+
+      @include tablet {
+        font-size: 24px;
+      }
 
       &:hover {
         color: var(--color-white);
@@ -66,6 +110,10 @@
     align-items: center;
     gap: 10px;
 
+  }
+
+  &__burger-button {
+    position: relative;
   }
 }
 
