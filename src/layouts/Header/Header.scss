@@ -34,6 +34,8 @@
     background-color: var(--color-black-20);
     padding: 20px;
 
+    transition-duration: var(--transition-duration);
+
     flex-direction: column-reverse;
     justify-content: start;
     row-gap: 16px;
@@ -102,7 +104,6 @@
         pointer-events: none;
       }
     }
-
   }
 
   &__actions {
