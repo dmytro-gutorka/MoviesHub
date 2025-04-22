@@ -2,6 +2,7 @@ import classNames from "classnames";
 
 import Logo from "@/components/Logo";
 import Button from "@/components/Button";
+import BurgerButton from "@/components/BurgerButton";
 
 import './Header.scss'
 
@@ -48,6 +49,7 @@ const Header = (props) => {
                     <Button className="header__button" label="Search" isLabelHidden iconName="search" mode="transparent"/>
                     <Button className="header__button" label="Notifications" isLabelHidden iconName="notification" mode="transparent"/>
                 </div>
+                <BurgerButton className="header__burger-button"/>
             </div>
         </header>
     )
