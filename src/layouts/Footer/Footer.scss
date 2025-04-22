@@ -1,0 +1,48 @@
+.footer {
+  background-color: var(--color-black-06);
+
+  &__menu {
+    --footerMenuColumns: 6;
+
+    display: grid;
+    grid-template-columns: repeat(var(--footerMenuColumns), 1fr);
+    gap: 30px fluid(30, 10);
+    padding-block: fluid(100, 50);
+    border-bottom: var(--border);
+
+    @include laptop {
+      --footerMenuColumns: 3;
+    }
+
+    @include mobile {
+      --footerMenuColumns: 2;
+    }
+  }
+
+  &__menu-column {
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(24, 16)
+  }
+
+  &__menu-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(14, 8)
+  }
+
+  &__extra {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    column-gap: 16px;
+
+    padding-top: fluid-to-laptop(24, 20);
+    padding-bottom: fluid-to-laptop(50, 20);
+
+    @include mobile {
+      flex-direction: column;
+      row-gap: 20px;
+    }
+  }
+}
