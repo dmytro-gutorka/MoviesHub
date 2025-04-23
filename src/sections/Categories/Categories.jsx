@@ -1,6 +1,55 @@
 import Section from "@/layouts/Section";
+import CategoryCard from "@/components/CategoryCard";
 
 const Categories = () => {
+
+    const categoryItems = [
+        {
+            title: 'Action',
+            images: [
+                '/src/assets/images/categories/action/1.jpg',
+                '/src/assets/images/categories/action/2.jpg',
+                '/src/assets/images/categories/action/3.jpg',
+                '/src/assets/images/categories/action/4.jpg',
+            ]
+        },
+        {
+            title: 'Action',
+            images: [
+                '/src/assets/images/categories/action/1.jpg',
+                '/src/assets/images/categories/action/2.jpg',
+                '/src/assets/images/categories/action/3.jpg',
+                '/src/assets/images/categories/action/4.jpg',
+            ]
+        },
+        {
+            title: 'Action',
+            images: [
+                '/src/assets/images/categories/action/1.jpg',
+                '/src/assets/images/categories/action/2.jpg',
+                '/src/assets/images/categories/action/3.jpg',
+                '/src/assets/images/categories/action/4.jpg',
+            ]
+        },
+        {
+            title: 'Action',
+            images: [
+                '/src/assets/images/categories/action/1.jpg',
+                '/src/assets/images/categories/action/2.jpg',
+                '/src/assets/images/categories/action/3.jpg',
+                '/src/assets/images/categories/action/4.jpg',
+            ]
+        },
+        {
+            title: 'Action',
+            images: [
+                '/src/assets/images/categories/action/1.jpg',
+                '/src/assets/images/categories/action/2.jpg',
+                '/src/assets/images/categories/action/3.jpg',
+                '/src/assets/images/categories/action/4.jpg',
+            ]
+        }
+    ]
 
     return (
         <Section
@@ -15,6 +64,9 @@ const Categories = () => {
                 </div>
             )}
         >
+            {categoryItems.map((categoryItem) => (
+                <CategoryCard {...categoryItem}/>
+            ))}
         </Section>
     )
 }
