@@ -9,7 +9,7 @@ import './Header.scss'
 
 const Header = (props) => {
 
-    const { url } = props
+    const { url, isFixed } = props
     const menuItems = [
         {
             label: 'Home',
@@ -30,7 +30,7 @@ const Header = (props) => {
     ]
 
     return (
-        <header className="header"
+        <header className={classNames('header', {'is-fixed': isFixed})}
                 data-js-overlay-menu=''>
             <div className="header__inner container">
                 <Logo className="header__logo" loading="eager" />

@@ -1,14 +1,17 @@
+import Hero from "@/sections/Hero";
+import Categories from "@/sections/Categories";
+
 export const metadata = {
-    title: 'Home'
+    title: 'Home',
+    isHeaderFixed: true,
 }
 
 
 export default function () {
   return (
     <>
-        <h1>
-            Main page
-        </h1>
+        <Hero/>
+        <Categories/>
     </>
   )
 }

@@ -18,6 +18,10 @@
     }
   }
 
+  &.is-fixed {
+    position: fixed;
+  }
+
   &__inner {
     display: flex;
     justify-content: space-between;
@@ -73,14 +77,15 @@
     }
 
     &-list {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+
       @include tablet {
         flex-direction: column;
         row-gap: 16px;
       }
-
-      display: flex;
-      align-items: center;
-      column-gap: 6px;
     }
 
     &-link {
