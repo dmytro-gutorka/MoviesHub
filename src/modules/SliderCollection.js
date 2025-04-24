@@ -12,6 +12,7 @@ class Slider {
         previousButton: '[data-js-slider-previous-button]',
         nextButton: '[data-js-slider-next-button]',
         pagination: '[data-js-slider-pagination]',
+        scrollBar: '[data-js-slider-scrollbar]',
     }
 
     constructor(rootElement) {
@@ -26,6 +27,8 @@ class Slider {
         this.previousButtonElement = this.navigationElement.querySelector(this.selectors.previousButton)
         this.nextButtonElement = this.navigationElement.querySelector(this.selectors.nextButton)
         this.paginationElement = this.navigationElement.querySelector(this.selectors.pagination)
+        this.scrollBarElement = this.rootElement.querySelector(this.selectors.scrollBar)
+
 
         this.init()
     }
@@ -33,17 +36,24 @@ class Slider {
     init() {
         new Swiper(this.swiperElement, {
             ...this.params.sliderParams,
+
             modules: [Navigation, Pagination, Scrollbar],
+
             navigation: {
                 prevEl: this.previousButtonElement,
                 nextEl: this.nextButtonElement,
             },
+
             pagination: {
                 el: this.paginationElement,
                 bulletClass: 'slider-navigation__pagination-bullet',
                 bulletActiveClass: 'is-active',
             },
 
+            scrollbar: {
+                el: this.scrollBarElement,
+                dragClass: 'slider__scrollbar-drag'
+            }
         })
     }
 }

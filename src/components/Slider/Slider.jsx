@@ -7,6 +7,28 @@ const defaultSliderParams = {
     slidesPerView: 5,
     slidesPerGroup: 5,
     spaceBetween: 30,
+    breakpoints: {
+        0: {
+            spaceBetween: 10,
+            slidesPerView: 2,
+            slidesPerGroup: 1,
+        },
+        481: {
+            spaceBetween: 20,
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+        },
+        768: {
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+        },
+        1441: {
+            spaceBetween: 30,
+            slidesPerView: 5,
+            slidesPerGroup: 5,
+            allowTouchMove: false,
+        }
+    }
 }
 
 
@@ -16,6 +38,7 @@ const Slider = (props) => {
         children,
         navigationTargetElementId = null,
         sliderParams = defaultSliderParams,
+        hasScrollBar = true,
 
     } = props
 
@@ -40,6 +63,13 @@ const Slider = (props) => {
             {!navigationTargetElementId && (
                 <SliderNavigation
                     className="slider__navigation"
+                />
+            )}
+
+            {hasScrollBar && (
+                <div
+                    className="slider__scrollbar visible-mobile"
+                    data-js-slider-scrollbar=""
                 />
             )}
         </div>
