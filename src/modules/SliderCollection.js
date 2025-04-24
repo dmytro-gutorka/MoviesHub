@@ -1,9 +1,8 @@
-import getParams from "@/utils/getParams";
+import { Navigation, Pagination, Scrollbar } from 'swiper/modules'
+import getParams from '@/utils/getParams'
 import Swiper from 'swiper'
-import { Navigation, Pagination } from "swiper/modules";
 
 const rootSelector = '[data-js-slider]'
-
 
 class Slider {
     selectors = {
@@ -20,13 +19,13 @@ class Slider {
         this.swiperElement = this.rootElement.querySelector(this.selectors.swiper)
         this.params = getParams(this.rootElement, this.selectors.root)
 
-        this.navigationElement = this.params.navigationTargetElementId ?
-            document.getElementById(this.params.navigationTargetElementId) :
-            this.rootElement.querySelector(this.selectors.navigation)
+        this.navigationElement = this.params.navigationTargetElementId
+            ? document.getElementById(this.params.navigationTargetElementId)
+            : this.rootElement.querySelector(this.selectors.navigation)
 
-        this.paginationElement = this.navigationElement.querySelector(this.selectors.pagination)
         this.previousButtonElement = this.navigationElement.querySelector(this.selectors.previousButton)
         this.nextButtonElement = this.navigationElement.querySelector(this.selectors.nextButton)
+        this.paginationElement = this.navigationElement.querySelector(this.selectors.pagination)
 
         this.init()
     }
@@ -34,36 +33,31 @@ class Slider {
     init() {
         new Swiper(this.swiperElement, {
             ...this.params.sliderParams,
-
-            modules: [Navigation, Pagination],
-
+            modules: [Navigation, Pagination, Scrollbar],
             navigation: {
                 prevEl: this.previousButtonElement,
-                nextEl: this.nextButtonElement
+                nextEl: this.nextButtonElement,
             },
-
             pagination: {
-                el: this.paginationElement
+                el: this.paginationElement,
+                bulletClass: 'slider-navigation__pagination-bullet',
+                bulletActiveClass: 'is-active',
             },
 
-            bulletClass: 'slider-navigation__pagination-bullet',
-            bulletActiveClass: 'is-active'
         })
     }
 }
-
 
 class SliderCollection {
     constructor() {
         this.init()
     }
 
-
     init() {
-        document.querySelectorAll(rootSelector)
-            .forEach(element => new Slider(element))
+        document.querySelectorAll(rootSelector).forEach((element) => {
+            new Slider(element)
+        })
     }
 }
-
 
 export default SliderCollection

@@ -21,7 +21,6 @@ const Categories = () => {
                     mode="tile"/>
             )}
         >
-
             <Slider navigationTargetElementId={sliderNavigationId}>
                 {categoryItems.map((categoryItem, index) => (
                     <CategoryCard
@@ -30,7 +29,6 @@ const Categories = () => {
                     />
                 ))}
             </Slider>
-
         </Section>
     )
 }
