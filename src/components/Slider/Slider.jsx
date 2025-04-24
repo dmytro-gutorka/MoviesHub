@@ -5,7 +5,7 @@ import SliderNavigation from "@/components/Slider/SliderNavigation";
 
 const defaultSliderParams = {
     slidesPerView: 5,
-    sliderPerGroup: 5,
+    slidesPerGroup: 5,
     spaceBetween: 30,
 }
 
@@ -20,9 +20,14 @@ const Slider = (props) => {
     } = props
 
     return (
-        <div className="slider"
-             data-js-slider={JSON.stringify({sliderParams, navigationTargetElementId})}>
-            <div className="sldier__swiper swiper" data-js-slider-swiper="">
+        <div
+            className="slider"
+            data-js-slider={JSON.stringify({
+                sliderParams,
+                navigationTargetElementId
+            })}
+        >
+            <div className="slider__swiper swiper" data-js-slider-swiper="">
                 <ul className="slider__list swiper-wrapper">
                     {children.map((slide, index) => (
                         <li className="slider__item swiper-slide" key={index}>
@@ -33,7 +38,9 @@ const Slider = (props) => {
             </div>
 
             {!navigationTargetElementId && (
-                <SliderNavigation className="slider__navigation" />
+                <SliderNavigation
+                    className="slider__navigation"
+                />
             )}
         </div>
     )
