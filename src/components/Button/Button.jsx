@@ -11,7 +11,7 @@ const Button = (props) => {
         href,
         target,
 
-        mode = '', // '' (default) | transparent | black-10
+        mode = '', // '' (default) | transparent | black-10 | black-08
         label,
         isLabelHidden = false,
         iconName,

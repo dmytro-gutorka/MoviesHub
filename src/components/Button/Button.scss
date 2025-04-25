@@ -10,6 +10,7 @@
   user-select: none;
   cursor: pointer;
   column-gap: 4px;
+  text-align: center;
 
 
   @include laptop {
@@ -54,10 +55,20 @@
     }
   }
 
+  &--black-08,
   &--black-10 {
-    background-color: var(--color-black-10);
     border: var(--border)
   }
+
+
+  &--black-08 {
+    background-color: var(--color-black-08);
+  }
+
+  &--black-10 {
+    background-color: var(--color-black-10);
+  }
+
 }
 
 
