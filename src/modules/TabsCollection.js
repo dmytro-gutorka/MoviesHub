@@ -1,11 +1,12 @@
 import getParams from "@/utils/getParams";
 import pxToRem from "@/utils/pxToRem";
+import BaseComponent from "@/modules/generic/BaseComponent/BaseComponent";
 
 
 const rootSelector = '[data-js-tabs]'
 
 
-class Tabs {
+class Tabs extends BaseComponent{
     selectors = {
         root: rootSelector,
         navigation: '[data-js-tabs-navigation]',
@@ -22,6 +23,7 @@ class Tabs {
     }
 
     constructor(rootElement) {
+        super()
         this.rootElement = rootElement
         this.params = getParams(this.rootElement, this.selectors.root)
 
@@ -31,7 +33,8 @@ class Tabs {
 
         this.buttonElements = [...this.navigationElement.querySelectorAll(this.selectors.button)]
         this.contentElements = [...this.rootElement.querySelectorAll(this.selectors.content)]
-        this.state = { activeTabIndex: this.buttonElements.findIndex(({ ariaSelected }) => ariaSelected)}
+        this.state = this.getProxyState(
+            { activeTabIndex: this.buttonElements.findIndex(({ ariaSelected }) => ariaSelected)})
         this.limitTabsIndex = this.buttonElements.length - 1
 
         this.bindEvents()
@@ -61,9 +64,7 @@ class Tabs {
     }
 
 
-    updateNavigationCSSVars(
-        activeButtonElement = this.buttonElements[this.state.activeTabIndex]
-    ) {
+    updateNavigationCSSVars(activeButtonElement = this.buttonElements[this.state.activeTabIndex]) {
         const { width, left } = activeButtonElement.getBoundingClientRect()
         const offsetLeft = left - this.navigationElement.getBoundingClientRect().left
 
@@ -80,7 +81,6 @@ class Tabs {
 
     activateTab(newTabIndex) {
         this.state.activeTabIndex = newTabIndex
-        this.updateUI()
         this.buttonElements[newTabIndex].focus()
     }
 
@@ -110,7 +110,6 @@ class Tabs {
 
     onButtonClick(buttonIndex) {
         this.state.activeTabIndex = buttonIndex
-        this.updateUI()
     }
 
     onKeyDown = (event) => {
