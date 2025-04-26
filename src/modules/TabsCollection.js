@@ -16,7 +16,7 @@ class Tabs {
         isActive: 'is-active'
     }
 
-    stateSCCVariables = {
+    stateCSSVariables = {
         activeButtonWidth: '--tabsNavigationActiveButtonWidth',
         activeButtonOffsetLeft: '--tabsNavigationActiveButtonOffsetLeft'
     }
@@ -43,6 +43,7 @@ class Tabs {
 
         this.buttonElements.forEach((buttonElement, index) => {
             const isActive = index === activeTabIndex
+
             buttonElement.classList.toggle(this.stateClasses.isActive, isActive)
             buttonElement.ariaSelected = isActive
             buttonElement.tabIndex = isActive ? 0 : -1;
@@ -54,24 +55,33 @@ class Tabs {
 
         this.contentElements.forEach((contentElement, index) => {
             const isActive = index === activeTabIndex;
+
             contentElement.classList.toggle(this.stateClasses.isActive, isActive);
         })
     }
 
-    updateNavigationCSSVars(activeButtonElement = this.buttonElements[this.state.activeTabIndex]) {
+
+    updateNavigationCSSVars(
+        activeButtonElement = this.buttonElements[this.state.activeTabIndex]
+    ) {
         const { width, left } = activeButtonElement.getBoundingClientRect()
         const offsetLeft = left - this.navigationElement.getBoundingClientRect().left
 
-        this.navigationElement.style.setProperty(this.stateSCCVariables.activeButtonWidth, `${pxToRem(width)}rem`)
-        this.navigationElement.style.setProperty(this.stateSCCVariables.activeButtonOffsetLeft, `${pxToRem(offsetLeft)}rem`)
+        this.navigationElement.style.setProperty(
+            this.stateCSSVariables.activeButtonWidth,
+            `${pxToRem(width)}rem`
+        )
 
+        this.navigationElement.style.setProperty(
+            this.stateCSSVariables.activeButtonOffsetLeft,
+            `${pxToRem(offsetLeft)}rem`
+        )
     }
 
     activateTab(newTabIndex) {
-     this.state.activeTabIndex = newTabIndex;
-     this.updateUI();
-     this.buttonElements[newTabIndex].focus()
-
+        this.state.activeTabIndex = newTabIndex
+        this.updateUI()
+        this.buttonElements[newTabIndex].focus()
     }
 
     previousTab = () => {
@@ -104,42 +114,40 @@ class Tabs {
     }
 
     onKeyDown = (event) => {
-        const { target, code, metaKey} = event
+        const { target, code, metaKey } = event
+        const isTabsContentFocused = this.contentElements
+            .some((contentElement) => contentElement === target)
+        const isTabsButtonFocused = this.buttonElements
+            .some((buttonElement) => buttonElement === target)
 
-        const isTabsContentFocused = this.contentElements.some((contentElement) =>
-            contentElement === target)
-        const isTabsButtonFocused = this.buttonElements.some((buttonElement) =>
-            buttonElement === target)
-
-        if (!isTabsContentFocused && !isTabsButtonFocused) return
+        if (!isTabsContentFocused && !isTabsButtonFocused) {
+            return
+        }
 
         const action = {
             ArrowLeft: this.previousTab,
             ArrowRight: this.nextTab,
             Home: this.firstTab,
-            End: this.lastTab
-        };
+            End: this.lastTab,
+        }[code]
 
         const isMacHomeKey = metaKey && code === 'ArrowLeft'
-        const isMacEndKey = metaKey && code === 'ArrowRight'
-
         if (isMacHomeKey) {
             event.preventDefault()
             this.firstTab()
             return
         }
 
+        const isMacEndKey = metaKey && code === 'ArrowRight'
         if (isMacEndKey) {
             event.preventDefault()
             this.lastTab()
             return
         }
 
-        const isAction = action[code]
-
-        if (isAction) {
+        if (action) {
             event.preventDefault()
-            isAction()
+            action()
         }
     }
 
@@ -155,7 +163,7 @@ class Tabs {
         this.updateNavigationCSSVars()
     }
 
-    bindObservers() {
+    bindObservers = () => {
         const resizeObserver = new ResizeObserver(this.onResize)
 
         resizeObserver.observe(this.navigationElement)

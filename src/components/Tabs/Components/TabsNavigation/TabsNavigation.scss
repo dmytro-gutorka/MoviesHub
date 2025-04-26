@@ -10,7 +10,7 @@
   border-radius: var(--border-radius-m);
 
   @include laptop {
-    border-radius: var(--border-radius-x);
+    border-radius: var(--border-radius-s);
   }
 
   &::before {
@@ -22,8 +22,8 @@
     height: calc(100% - var(--tabsNavigationPadding) * 2);
     background-color: var(--color-black-12);
     border-radius: var(--border-radius-s);
-    transition: var(--transition-duration);
-    translate: var(tabsNavigationActiveButtonOffsetLeft);
+    transition-duration: var(--transition-duration);
+    translate: var(--tabsNavigationActiveButtonOffsetLeft);
 
     @include laptop {
       border-radius: var(--border-radius-xs);
@@ -32,7 +32,7 @@
 
   &__button {
     position: relative;
-    padding: fluid-to-laptop(14, 12) fluid-to-laptop(24 ,20);
+    padding: fluid-to-laptop(14, 12) fluid-to-laptop(24, 20);
     border-radius: var(--border-radius-m);
     transition-duration: var(--transition-duration);
     cursor: pointer;
