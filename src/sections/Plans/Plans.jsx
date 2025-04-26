@@ -25,6 +25,7 @@ const Plans = () => {
                 items={planGroups.map((planGroup) => ({
                     title: planGroup.title,
                     isActive: planGroup.isActive,
+
                     children: (
                         <Grid columns={3}>
                             {planGroup.items.map((planCard, index) =>

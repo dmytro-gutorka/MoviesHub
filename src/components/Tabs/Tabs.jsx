@@ -22,12 +22,16 @@ const Tabs = (props) => {
                     const titleFormated = getIdFromTitle(title)
                     const buttonId = `${titleFormated}-tab`
                     const contentId = `${titleFormated}-tabpanel`
+                    const classes = classNames('tabs__content', {'is-active' : isActive})
 
                     return (
                         <div
-                            className={classNames('tabs__content', {'is-active' : isActive})}
-                            id={contentId} aria-labelledby={buttonId}
-                            tabIndex={0} data-js-tabs-content="" key={index}
+                            className={classes}
+                            id={contentId}
+                            aria-labelledby={buttonId}
+                            tabIndex={0}
+                            data-js-tabs-content=""
+                            key={index}
                         >
                             {children}
                         </div>
