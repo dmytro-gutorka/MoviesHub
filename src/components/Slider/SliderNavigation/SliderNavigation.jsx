@@ -16,8 +16,7 @@ const SliderNavigation = (props) => {
            className={classNames(className, 'slider-navigation',
                {[`slider-navigation--${mode}`] : mode,
                 [`slider-navigation--${position}`] : position,
-                   'hidden-mobile': isHiddenMobile
-               })}
+                   'hidden-mobile': isHiddenMobile})}
            id={id} data-js-slider-navigation=""
        >
            <Button

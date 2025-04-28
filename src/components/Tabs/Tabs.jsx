@@ -6,11 +6,17 @@ import TabsNavigation from "@/components/Tabs/Components/TabsNavigation";
 
 const Tabs = (props) => {
 
-    const { className, title, items = [], navigationTargetElementId = null } = props
+    const {
+        className,
+        title,
+        items = [],
+        navigationTargetElementId = null,
+        isEnableOnlyOnMobile = false,
+    } = props
 
     return (
         <div
-            className={classNames(className, 'tabs')}
+            className={classNames(className, 'tabs', {'tabs--enable-only-on-mobile': isEnableOnlyOnMobile})}
             data-js-tabs={JSON.stringify({navigationTargetElementId})}
         >
             {!navigationTargetElementId && <div><TabsNavigation title={title} items={items}/></div>}
