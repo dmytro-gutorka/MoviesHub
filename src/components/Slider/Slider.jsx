@@ -38,40 +38,29 @@ const Slider = (props) => {
         children,
         navigationTargetElementId = null,
         sliderParams = defaultSliderParams,
-        hasScrollBar = true,
-
+        hasScrollBarOnMobile = true,
+        navigationPosition = '', // '' (default) | abs-bottom
+        isNavigationHiddenMobile = true
     } = props
 
     return (
         <div
-            className="slider"
-            data-js-slider={JSON.stringify({
-                sliderParams,
-                navigationTargetElementId
-            })}
-        >
+            className="slider" data-js-slider={JSON.stringify({sliderParams, navigationTargetElementId})}>
             <div className="slider__swiper swiper" data-js-slider-swiper="">
                 <ul className="slider__list swiper-wrapper">
-                    {children.map((slide, index) => (
-                        <li className="slider__item swiper-slide" key={index}>
-                            {slide}
-                        </li>
-                    ))}
+                    {children.map((slide, index) =>
+                        (<li className="slider__item swiper-slide" key={index}>{slide}</li>))}
                 </ul>
             </div>
-
             {!navigationTargetElementId && (
                 <SliderNavigation
                     className="slider__navigation"
+                    position={navigationPosition}
+                    isHiddenMobile={isNavigationHiddenMobile}
                 />
             )}
 
-            {hasScrollBar && (
-                <div
-                    className="slider__scrollbar visible-mobile"
-                    data-js-slider-scrollbar=""
-                />
-            )}
+            {hasScrollBarOnMobile && (<div className="slider__scrollbar visible-mobile" data-js-slider-scrollbar=""/>)}
         </div>
     )
 }

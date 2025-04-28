@@ -43,6 +43,15 @@
 
     @include mobile {
       flex-direction: column;
+      row-gap: 20px;
+      width: 100%;
+
+    }
+  }
+
+  &__play-button {
+    @include mobile-s {
+      width: 100%;
     }
   }
 

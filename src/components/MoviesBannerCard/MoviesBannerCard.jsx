@@ -9,7 +9,7 @@ const MoviesBannerCard = (props) => {
 
     return (
         <div className="movies-banner-card">
-            <Image className="movies-banner-card__image" {imgSrc}/>
+            <Image className="movies-banner-card__image" src={imgSrc}/>
             <div className="movies-banner-card__inner">
                 <div className="movies-banner-card__body">
                     <h2 className="movies-banner-card__title h3">{title}</h2>
