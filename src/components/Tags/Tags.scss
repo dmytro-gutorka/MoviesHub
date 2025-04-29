@@ -1,5 +1,4 @@
 .tags {
-
   &__list {
     display: flex;
     flex-wrap: wrap;
@@ -10,11 +9,11 @@
     padding: fluid-to-laptop(8, 6) fluid-to-laptop(14, 12);
     font-weight: 500;
     color: var(--color-white);
+    background-color: var(--color-black-08);
     border: var(--border);
     border-radius: var(--border-radius-s);
-    background-color: var(--color-black-08);
 
-    @include mobile {
+    @include laptop {
       border-radius: var(--border-radius-xs);
     }
   }
