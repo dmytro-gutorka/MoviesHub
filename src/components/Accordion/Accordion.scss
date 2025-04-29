@@ -19,20 +19,20 @@
     cursor: pointer;
     user-select: none;
 
-    &::-webkit-details-marker {
-      display: none;
-    }
-
     @include hover {
       color: var(--color-red-60);
+    }
+
+    &::-webkit-details-marker {
+      display: none;
     }
   }
 
   &__title {
+    position: relative;
     display: flex;
     align-items: center;
-    min-height: var(--accordionGroupCounterHight);
-    position: relative;
+    min-height: var(--accordionGroupCounterHeight);
     padding-right: 50px;
     color: inherit;
     transition-duration: var(--transition-duration);
@@ -41,7 +41,7 @@
     &::after {
       @include abs-y;
 
-      content: "";
+      content: '';
       right: 0;
       width: fluid-to-laptop(20, 16);
       height: 2.5px;
@@ -53,7 +53,8 @@
         height: 2px;
       }
     }
-    &::after{
+
+    &::after {
       rotate: 90deg;
     }
   }

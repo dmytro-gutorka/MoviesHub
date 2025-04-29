@@ -1,8 +1,7 @@
-$laptop: 1440px;
-$tablet: 1023px;
-$mobile: 767px;
+$laptop:   1440px;
+$tablet:   1023px;
+$mobile:   767px;
 $mobile-s: 480px;
-
 
 @mixin laptop-above {
   @media (width > $laptop) {
@@ -10,13 +9,11 @@ $mobile-s: 480px;
   }
 }
 
-
 @mixin laptop {
   @media (width <= $laptop) {
     @content;
   }
 }
-
 
 @mixin tablet-above {
   @media (width > $tablet) {
@@ -24,13 +21,11 @@ $mobile-s: 480px;
   }
 }
 
-
 @mixin tablet {
   @media (width <= $tablet) {
     @content;
   }
 }
-
 
 @mixin mobile-above {
   @media (width > $mobile) {
@@ -38,13 +33,11 @@ $mobile-s: 480px;
   }
 }
 
-
 @mixin mobile {
   @media (width <= $mobile) {
     @content;
   }
 }
-
 
 @mixin mobile-s-above {
   @media (width > $mobile-s) {
@@ -52,13 +45,11 @@ $mobile-s: 480px;
   }
 }
 
-
 @mixin mobile-s {
   @media (width <= $mobile-s) {
     @content;
   }
 }
-
 
 @mixin hover($hasActiveEffectOnMobile: true) {
   @media (any-hover: hover) {

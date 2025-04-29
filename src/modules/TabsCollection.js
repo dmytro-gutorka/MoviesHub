@@ -1,185 +1,181 @@
-import getParams from "@/utils/getParams";
-import pxToRem from "@/utils/pxToRem";
-import BaseComponent from "@/modules/generic/BaseComponent/BaseComponent";
-
+import getParams from '@/utils/getParams'
+import pxToRem from '@/utils/pxToRem'
+import BaseComponent from '@/modules/generic/BaseComponent'
 
 const rootSelector = '[data-js-tabs]'
 
+class Tabs extends BaseComponent {
+  selectors = {
+    root: rootSelector,
+    navigation: '[data-js-tabs-navigation]',
+    button: '[data-js-tabs-button]',
+    content: '[data-js-tabs-content]',
+  }
 
-class Tabs extends BaseComponent{
-    selectors = {
-        root: rootSelector,
-        navigation: '[data-js-tabs-navigation]',
-        button: '[data-js-tabs-button]',
-        content: '[data-js-tabs-content]'
-    }
-    stateClasses = {
-        isActive: 'is-active'
-    }
+  stateClasses = {
+    isActive: 'is-active',
+  }
 
-    stateCSSVariables = {
-        activeButtonWidth: '--tabsNavigationActiveButtonWidth',
-        activeButtonOffsetLeft: '--tabsNavigationActiveButtonOffsetLeft'
-    }
+  stateCSSVariables = {
+    activeButtonWidth: '--tabsNavigationActiveButtonWidth',
+    activeButtonOffsetLeft: '--tabsNavigationActiveButtonOffsetLeft',
+  }
 
-    constructor(rootElement) {
-        super()
-        this.rootElement = rootElement
-        this.params = getParams(this.rootElement, this.selectors.root)
+  constructor(rootElement) {
+    super()
+    this.rootElement = rootElement
+    this.params = getParams(this.rootElement, this.selectors.root)
+    this.navigationElement = this.params.navigationTargetElementId
+      ? document.getElementById(this.params.navigationTargetElementId)
+      : this.rootElement.querySelector(this.selectors.navigation)
+    this.buttonElements = [...this.navigationElement.querySelectorAll(this.selectors.button)]
+    this.contentElements = [...this.rootElement.querySelectorAll(this.selectors.content)]
+    this.state = this.getProxyState({
+      activeTabIndex: this.buttonElements.findIndex(({ ariaSelected }) => ariaSelected)
+    })
+    this.limitTabsIndex = this.buttonElements.length - 1
+    this.bindEvents()
+    setTimeout(this.bindObservers, 500)
+  }
 
-        this.navigationElement = this.params.navigationTargetElementId
-            ? document.getElementById(this.params.navigationTargetElementId)
-            : this.rootElement.querySelector(this.selectors.navigation)
+  updateUI() {
+    const { activeTabIndex } = this.state
 
-        this.buttonElements = [...this.navigationElement.querySelectorAll(this.selectors.button)]
-        this.contentElements = [...this.rootElement.querySelectorAll(this.selectors.content)]
-        this.state = this.getProxyState(
-            { activeTabIndex: this.buttonElements.findIndex(({ ariaSelected }) => ariaSelected)})
-        this.limitTabsIndex = this.buttonElements.length - 1
+    this.buttonElements.forEach((buttonElement, index) => {
+      const isActive = index === activeTabIndex
 
-        this.bindEvents()
-        setTimeout(this.bindObservers, 500)
-    }
+      buttonElement.classList.toggle(this.stateClasses.isActive, isActive)
+      buttonElement.ariaSelected = isActive
+      buttonElement.tabIndex = isActive ? 0 : -1
 
-    updateUI() {
-        const { activeTabIndex } = this.state
+      if (isActive) {
+        this.updateNavigationCSSVars(buttonElement)
+      }
+    })
 
-        this.buttonElements.forEach((buttonElement, index) => {
-            const isActive = index === activeTabIndex
+    this.contentElements.forEach((contentElement, index) => {
+      const isActive = index === activeTabIndex
 
-            buttonElement.classList.toggle(this.stateClasses.isActive, isActive)
-            buttonElement.ariaSelected = isActive
-            buttonElement.tabIndex = isActive ? 0 : -1;
+      contentElement.classList.toggle(this.stateClasses.isActive, isActive)
+    })
+  }
 
-            if (isActive) {
-                this.updateNavigationCSSVars(buttonElement);
-            }
-        })
+  updateNavigationCSSVars(
+    activeButtonElement = this.buttonElements[this.state.activeTabIndex]
+  ) {
+    const { width, left } = activeButtonElement.getBoundingClientRect()
+    const offsetLeft = left - this.navigationElement.getBoundingClientRect().left
 
-        this.contentElements.forEach((contentElement, index) => {
-            const isActive = index === activeTabIndex;
+    this.navigationElement.style.setProperty(
+      this.stateCSSVariables.activeButtonWidth,
+      `${pxToRem(width)}rem`
+    )
 
-            contentElement.classList.toggle(this.stateClasses.isActive, isActive);
-        })
-    }
+    this.navigationElement.style.setProperty(
+      this.stateCSSVariables.activeButtonOffsetLeft,
+      `${pxToRem(offsetLeft)}rem`
+    )
+  }
 
+  activateTab(newTabIndex) {
+    this.state.activeTabIndex = newTabIndex
+    this.buttonElements[newTabIndex].focus()
+  }
 
-    updateNavigationCSSVars(activeButtonElement = this.buttonElements[this.state.activeTabIndex]) {
-        const { width, left } = activeButtonElement.getBoundingClientRect()
-        const offsetLeft = left - this.navigationElement.getBoundingClientRect().left
+  previousTab = () => {
+    const newTabIndex = this.state.activeTabIndex === 0
+      ? this.limitTabsIndex
+      : this.state.activeTabIndex - 1
 
-        this.navigationElement.style.setProperty(
-            this.stateCSSVariables.activeButtonWidth,
-            `${pxToRem(width)}rem`
-        )
+    this.activateTab(newTabIndex)
+  }
 
-        this.navigationElement.style.setProperty(
-            this.stateCSSVariables.activeButtonOffsetLeft,
-            `${pxToRem(offsetLeft)}rem`
-        )
-    }
+  nextTab = () => {
+    const newTabIndex = this.state.activeTabIndex === this.limitTabsIndex
+      ? 0
+      : this.state.activeTabIndex + 1
 
-    activateTab(newTabIndex) {
-        this.state.activeTabIndex = newTabIndex
-        this.buttonElements[newTabIndex].focus()
-    }
+    this.activateTab(newTabIndex)
+  }
 
-    previousTab = () => {
-        const newTabIndex = this.state.activeTabIndex === 0
-            ? this.limitTabsIndex
-            : this.state.activeTabIndex - 1
+  firstTab = () => {
+    this.activateTab(0)
+  }
 
-        this.activateTab(newTabIndex)
-    }
+  lastTab = () => {
+    this.activateTab(this.limitTabsIndex)
+  }
 
-    nextTab = () => {
-        const newTabIndex = this.state.activeTabIndex === this.limitTabsIndex
-            ? 0
-            : this.state.activeTabIndex + 1
+  onButtonClick(buttonIndex) {
+    this.state.activeTabIndex = buttonIndex
+  }
 
-        this.activateTab(newTabIndex)
-    }
+  onKeyDown = (event) => {
+    const { target, code, metaKey } = event
+    const isTabsContentFocused = this.contentElements
+      .some((contentElement) => contentElement === target)
+    const isTabsButtonFocused = this.buttonElements
+      .some((buttonElement) => buttonElement === target)
 
-    firstTab = () => {
-        this.activateTab(0)
-    }
-
-    lastTab = () => {
-        this.activateTab(this.limitTabsIndex)
-    }
-
-    onButtonClick(buttonIndex) {
-        this.state.activeTabIndex = buttonIndex
-    }
-
-    onKeyDown = (event) => {
-        const { target, code, metaKey } = event
-        const isTabsContentFocused = this.contentElements
-            .some((contentElement) => contentElement === target)
-        const isTabsButtonFocused = this.buttonElements
-            .some((buttonElement) => buttonElement === target)
-
-        if (!isTabsContentFocused && !isTabsButtonFocused) {
-            return
-        }
-
-        const action = {
-            ArrowLeft: this.previousTab,
-            ArrowRight: this.nextTab,
-            Home: this.firstTab,
-            End: this.lastTab,
-        }[code]
-
-        const isMacHomeKey = metaKey && code === 'ArrowLeft'
-        if (isMacHomeKey) {
-            event.preventDefault()
-            this.firstTab()
-            return
-        }
-
-        const isMacEndKey = metaKey && code === 'ArrowRight'
-        if (isMacEndKey) {
-            event.preventDefault()
-            this.lastTab()
-            return
-        }
-
-        if (action) {
-            event.preventDefault()
-            action()
-        }
+    if (!isTabsContentFocused && !isTabsButtonFocused) {
+      return
     }
 
-    bindEvents() {
-        this.buttonElements.forEach((buttonElement, index) => {
-            buttonElement.addEventListener('click', () => this.onButtonClick(index))
-        })
+    const action = {
+      ArrowLeft: this.previousTab,
+      ArrowRight: this.nextTab,
+      Home: this.firstTab,
+      End: this.lastTab,
+    }[code]
 
-        document.addEventListener('keydown', this.onKeyDown)
+    const isMacHomeKey = metaKey && code === 'ArrowLeft'
+    if (isMacHomeKey) {
+      event.preventDefault()
+      this.firstTab()
+      return
     }
 
-    onResize = () => {
-        this.updateNavigationCSSVars()
+    const isMacEndKey = metaKey && code === 'ArrowRight'
+    if (isMacEndKey) {
+      event.preventDefault()
+      this.lastTab()
+      return
     }
 
-    bindObservers = () => {
-        const resizeObserver = new ResizeObserver(this.onResize)
-
-        resizeObserver.observe(this.navigationElement)
+    if (action) {
+      event.preventDefault()
+      action()
     }
+  }
+
+  bindEvents() {
+    this.buttonElements.forEach((buttonElement, index) => {
+      buttonElement.addEventListener('click', () => this.onButtonClick(index))
+    })
+    document.addEventListener('keydown', this.onKeyDown)
+  }
+
+  onResize = () => {
+    this.updateNavigationCSSVars()
+  }
+
+  bindObservers = () => {
+    const resizeObserver = new ResizeObserver(this.onResize)
+
+    resizeObserver.observe(this.navigationElement)
+  }
 }
-
 
 class TabsCollection {
+  constructor() {
+    this.init()
+  }
 
-    constructor() {
-        this.init()
-    }
-
-    init() {
-        document.querySelectorAll(rootSelector).forEach(element => new Tabs(element))
-    }
+  init() {
+    document.querySelectorAll(rootSelector).forEach((element) => {
+      new Tabs(element)
+    })
+  }
 }
-
 
 export default TabsCollection

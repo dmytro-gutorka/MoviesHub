@@ -1,32 +1,32 @@
 import './Logo.scss'
 import classNames from 'classnames'
 
-
 const Logo = (props) => {
-    const {
-        loading = 'lazy',
-        className,
-    } = props
+  const {
+    className,
+    loading = 'lazy',
+  } = props
 
+  const title = 'Home'
 
-    const title = 'Home'
+  return (
+    <a
+      className={classNames(className, 'logo')}
+      href="/"
+      title={title}
+      aria-label={title}
+    >
+      <img
+        className="logo__image"
+        src="/logo.svg"
+        alt=""
+        width={199}
+        height={60}
+        loading={loading}
+      />
 
-    return (
-        <a className={classNames(className, 'logo')}
-           href="/"
-           title={title}
-           aria-label={title}
-        >
-            <img
-                src="/logo.svg"
-                alt=""
-                className="logo__image"
-                width={199}
-                height={60}
-                loading={loading}
-            />
-        </a>
-    )
+    </a>
+  )
 }
 
 export default Logo

@@ -1,10 +1,10 @@
 .tabs {
   --tabsBodyRowGap: 0;
-  --tabNonActiveContentDisplay: none;
+  --tabsNonActiveContentDisplay: none;
 
-  &--enable-only-on-mobile{
+  &--enable-only-on-mobile {
     @include mobile-above {
-      --tabNonActiveContentDisplay: block;
+      --tabsNonActiveContentDisplay: block;
       --tabsNavigationDisplay: none;
     }
   }
@@ -16,7 +16,7 @@
 
   &__content {
     &:not(.is-active) {
-      display: var(--tabNonActiveContentDisplay);
+      display: var(--tabsNonActiveContentDisplay);
     }
   }
 }

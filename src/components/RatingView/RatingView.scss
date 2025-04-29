@@ -9,16 +9,16 @@
     position: relative;
 
     &-filled {
-      --ratingViewStartClipEnd: calc(100% / 5 * var(--ratingViewValue));
+      --ratingViewStarsClipEnd: calc(100% / 5 * var(--ratingViewValue));
 
       @include abs-cover;
 
       clip-path: polygon(
         0 0,
-        var(--ratingViewStartClipEnd) 0,
-        var(--ratingViewStartClipEnd) 100%,
+        var(--ratingViewStarsClipEnd) 0,
+        var(--ratingViewStarsClipEnd) 100%,
         0 100%
-      )
+      );
     }
   }
 }

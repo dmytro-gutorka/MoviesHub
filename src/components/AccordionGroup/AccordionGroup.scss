@@ -1,7 +1,6 @@
 .accordion-group {
-
   &--has-counter {
-    --accordionGroupCounterHight: #{fluid(67, 46)};
+    --accordionGroupCounterHeight: #{fluid(67, 46)};
 
     counter-reset: custom-counter;
     list-style: none;
@@ -12,14 +11,14 @@
       counter-increment: custom-counter;
 
       &::before {
-        @include flex-center();
+        @include flex-center;
 
         content: counter(custom-counter, decimal-leading-zero);
+        min-width: fluid(62, 42);
+        height: var(--accordionGroupCounterHeight);
         font-size: fluid-to-laptop(20, 16);
         font-weight: 600;
         color: var(--color-white);
-        min-width: fluid(62, 42);
-        height: var(--accordionGroupCounterHight);
         background-color: var(--color-black-12);
         border: var(--border);
         border-radius: var(--border-radius-m);
@@ -30,18 +29,6 @@
 
         @include mobile {
           border-radius: var(--border-radius-xs);
-        }
-      }
-
-      @include tablet {
-        padding: 40px;
-
-        &:first-child {
-          padding-top: 20px;
-        }
-
-        &:last-child {
-          padding-bottom: 20px;
         }
       }
     }
@@ -61,9 +48,24 @@
 
     @include tablet-above {
       &--last-column-item {
-        &::after{
+        &::after {
           display: none;
         }
+      }
+    }
+
+    @include tablet {
+      --accordionGroupItemPaddingY: 40px;
+      --accordionGroupItemHalfPaddingY: calc(var(--accordionGroupItemPaddingY) / 2);
+
+      padding: var(--accordionGroupItemPaddingY) 0;
+
+      &:first-child {
+        padding-top: var(--accordionGroupItemHalfPaddingY);
+      }
+
+      &:last-child {
+        padding-bottom: var(--accordionGroupItemHalfPaddingY);
       }
     }
 
@@ -71,13 +73,14 @@
       position: relative;
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 1px;
-        background-image: linear-gradient(90deg, rgba(229, 0, 0, 0.00) 0%, var(--color-red-45) 16.67%, rgba(229, 0, 0, 0.00) 100%);
+        background-image:
+          linear-gradient(90deg, rgba(229, 0, 0, 0.00) 0%, var(--color-red-45) 16.67%, rgba(229, 0, 0, 0.00) 100%);
       }
     }
   }
