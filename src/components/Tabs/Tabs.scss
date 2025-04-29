@@ -1,4 +1,5 @@
 .tabs {
+  --tabsBodyRowGap: 0;
   --tabNonActiveContentDisplay: none;
 
   &--enable-only-on-mobile{
@@ -6,6 +7,11 @@
       --tabNonActiveContentDisplay: block;
       --tabsNavigationDisplay: none;
     }
+  }
+
+  &__body {
+    display: grid;
+    row-gap: var(--tabsBodyRowGap);
   }
 
   &__content {

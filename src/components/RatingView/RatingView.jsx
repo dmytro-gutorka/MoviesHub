@@ -6,10 +6,13 @@ const RatingView = (props) => {
     const ariaLabel = `Rating ${value} start`
 
     return (
-        <div className="rating-view" aria-label={ariaLabel} title={ariaLabel} style={{'--ratingViewValue': value}}>
+        <div className="rating-view" aria-label={ariaLabel}
+             title={ariaLabel} style={{'--ratingViewValue': value}}>
             <div className="rating-view__stars">
-                <img className="rating-view__stars-unfilled" src="/start_unfilled.svg" alt="" width={98} height={18}/>
-                <img className="rating-view__stars-filled" src="/start_filled.svg" alt="" width={98} height={18}/>
+                <img className="rating-view__stars-unfilled" src="/start_unfilled.svg"
+                     alt="" width={98} height={18}/>
+                <img className="rating-view__stars-filled" src="/start_filled.svg"
+                     alt="" width={98} height={18}/>
             </div>
             {label && (<div className="rating-view__label"></div>)}
         </div>
