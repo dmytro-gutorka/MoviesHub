@@ -6,10 +6,20 @@
   padding-top: var(--movieDetailsPaddingTop);
   padding-bottom: var(--section-padding-y);
 
+  @include tablet-above {
+    grid-template-columns: 1fr 32.5%;
+  }
+
   @include tablet {
     .movie-details {
-      &__panel--description {
-        order: -2;
+      &__panel {
+        &--description {
+          order: -2;
+        }
+
+        &--seasons {
+          order: -3;
+        }
       }
 
       &__info {
@@ -18,25 +28,22 @@
     }
   }
 
-  @include tablet-above {
-    grid-template-columns: 1fr 32.5%;
-
-    &__info {
-      position: sticky;
-      align-self: start;
-      top: calc(var(--movieDetailsPaddingTop) + 20px)
-    }
-  }
-
   &__main {
     display: grid;
     row-gap: fluid-to-laptop(30, 20);
 
     @include tablet {
-     display: contents;
+      display: contents;
     }
   }
 
+  &__info {
+    @include tablet-above {
+      position: sticky;
+      top: calc(var(--movieDetailsPaddingTop) + 20px);
+      align-self: start;
+    }
+  }
 
   &__panel {
     display: grid;
@@ -48,6 +55,10 @@
 
     @include laptop {
       border-radius: var(--border-radius-m);
+    }
+
+    &--large-gap-y {
+      row-gap: fluid(40, 24);
     }
 
     &-header {
@@ -66,15 +77,15 @@
   &__group {
     display: grid;
     row-gap: fluid-to-laptop(14, 10);
+
+    &--big-gap-y {
+      row-gap: fluid(40, 20);
+    }
   }
 
   &__title,
   &__description {
     font-weight: 500;
-  }
-
-  &__description {
-    color: var(--color-white);
   }
 
   &__title {
@@ -84,5 +95,9 @@
     align-items: center;
     column-gap: 4px;
     color: inherit;
+  }
+
+  &__description {
+    color: var(--color-white);
   }
 }

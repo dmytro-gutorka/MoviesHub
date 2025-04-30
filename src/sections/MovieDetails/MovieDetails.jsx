@@ -8,7 +8,11 @@ import Icon from '@/components/Icon'
 import Tags from '@/components/Tags'
 import Ratings from '@/components/Ratings'
 
-const MovieDetails = () => {
+const MovieDetails = (props) => {
+  const {
+    seasons,
+  } = props
+
   const titleId = 'movie-details-title'
   const castSliderNavigationId = 'movie-card-slider-navigation'
 
@@ -23,6 +27,7 @@ const MovieDetails = () => {
     { imgSrc: '/src/assets/images/people/cast.jpg', imgAlt: 'Ivan Ivanov' },
     { imgSrc: '/src/assets/images/people/cast.jpg', imgAlt: 'Ivan Ivanov' },
   ]
+
   const reviewItems = [
     {
       name: 'Aniket Roy',
@@ -83,6 +88,14 @@ const MovieDetails = () => {
         Detailed movie information
       </h2>
       <div className="movie-details__main">
+        {seasons && (
+          <div className="movie-details__panel movie-details__panel--seasons">
+            <div className="movie-details__group movie-details__group--big-gap-y">
+              <h3 className="h4">Seasons and Episodes</h3>
+              {seasons}
+            </div>
+          </div>
+        )}
         <div className="movie-details__panel movie-details__panel--description">
           <div className="movie-details__group">
             <h3 className="movie-details__title">
@@ -125,7 +138,7 @@ const MovieDetails = () => {
             ))}
           </Slider>
         </div>
-        <div className="movie-details__panel">
+        <div className="movie-details__panel movie-details__panel--large-gap-y">
           <header className="movie-details__panel-header">
             <h3 className="movie-details__title">
               Reviews
