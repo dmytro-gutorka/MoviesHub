@@ -17,18 +17,21 @@ const EpisodeCard = (props) => {
       <div className="episode-card__number">
         {number}
       </div>
-      <div className="episode-card__player">
+      <div className="episode-card__player" data-js-video-player="">
         <video
           className="episode-card__video"
+          data-js-video-player-video=""
           src={video.src}
           poster={video.poster}
           width={172}
           height={118}
         />
         <button
+          data-js-video-player-play-button=""
           className="episode-card__play-button is-active"
           aria-label={playButtonTitle}
           title={playButtonTitle}
+          type="button"
         >
           <Icon
             className="episode-card__play-button-icon"
