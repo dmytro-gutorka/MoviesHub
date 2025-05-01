@@ -7,14 +7,12 @@ const Field = (props) => {
     className,
     id = getIdFromTitle(props.label),
     label,
-    /**
-     * undefined (default) | 'email | 'textarea'
-     */
-    type,
+    type, // undefined (default) | 'email | 'textarea'
     placeholder,
     isRequired,
     inputMode,
     mask,
+    renderBefore,
   } = props
 
   const Component = type === 'textarea'
@@ -43,6 +41,7 @@ const Field = (props) => {
         )}
       </label>
       <div className="field__body">
+        {renderBefore?.('field__control')}
         <Component
           className="field__control"
           id={id}
