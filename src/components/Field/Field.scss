@@ -5,9 +5,9 @@
   row-gap: fluid-to-laptop(16, 12);
 
   &__label {
-    font-size: fluid-to-laptop(18, 12);
+    font-size: fluid-to-laptop(18, 16);
     font-weight: 600;
-    color: var(--color-white);
+    color: var(--colo-white);
   }
 
   &__required-star {
