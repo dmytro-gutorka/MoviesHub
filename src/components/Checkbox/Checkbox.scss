@@ -22,6 +22,10 @@
     border: var(--border);
     border-radius: var(--border-radius-xxxs);
 
+    &:not(:checked)::after {
+      @include hide;
+    }
+
     &:user-invalid {
       border-color: var(--color-red-45);
     }
@@ -35,17 +39,13 @@
 
     &:required {
       & + .checkbox__label::after {
-        content: " *" / '';
+        content: ' *' / '';
         color: var(--color-red-45);
       }
     }
 
-    &:not(:checked)::after {
-      @include hide;
-    }
-
     &::after {
-      content: "✓";
+      content: '✔';
       color: var(--color-white);
       transition-duration: inherit;
     }

@@ -7,7 +7,10 @@ const Field = (props) => {
     className,
     id = getIdFromTitle(props.label),
     label,
-    type, // undefined (default) | 'email | 'textarea'
+    /**
+     * undefined (default) | 'email | 'textarea'
+     */
+    type,
     placeholder,
     isRequired,
     inputMode,
